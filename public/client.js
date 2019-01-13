@@ -25,17 +25,24 @@ function buildQueryString(){
 }
 
 function buildFullUrl(){
-    return 'https://pluginbadges.glitch.me/api/' + document.getElementById('input_name').value + '-' + document.getElementById('input_color').value + '.svg' + buildQueryString();
+    return 'https://pluginbadges.glitch.me/api/' + document.getElementById('input_badge_name').value + '-' + document.getElementById('input_color').value + '.svg' + buildQueryString();
 }
 
 $(function(){
 
-    document.getElementById('button_preview').onclick = e => {
-        console.log(buildFullUrl());
+    document.getElementById('button_clear').onclick = e => {
+        document.getElementById('input_badge_name').value = '';
+        document.getElementById('input_color').value = '';
+        document.getElementById('input_bukkit').value = '';
+        document.getElementById('input_spigot').value = '';
+        document.getElementById('input_ore').value = '';
+        document.getElementById('input_github').value = '';
     };
 
     document.getElementById('button_submit').onclick = e => {
-        console.log(buildFullUrl());
+        const url = buildFullUrl();
+        document.getElementById('output_link').value = url;
+        document.getElementById('img_preview').src = url;
     };
 
 });
