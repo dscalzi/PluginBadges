@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <title>PluginBadges</title>
+    <link rel="stylesheet" href="uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="core.css" />
+    <script src="uikit/js/uikit.min.js"></script>
+    <script src="uikit/js/uikit-icons.min.js"></script>
+    <script src="jquery/jquery.min.css"></script>
+    <script src="client.js"></script>
+</head>
+<body>
+    <div class="uk-navbar-container uk-sticky uk-sticky-fixed uk-active uk-sticky-below">
+        <div class="uk-container uk-container-expand">
+            <nav class="uk-navbar">
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo">PluginBadges</a>
+                </div>
+                <div class="uk-navbar-right">
+                    <a href="https://github.com/dscalzi/PluginBadges" class="uk-navbar-item uk-text-lead uk-text-small uk-margin-large-right">Source (GitHub)</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="uk-container uk-margin-large-top uk-align-center uk-width-1-2">
+        <h2>Create Your Badge</h2>
+        <form class="uk-form-stacked uk-child-width-auto@m uk-grid">
+            <div class="uk-column-1-1 uk-width-1-1">
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <a class="uk-form-icon uk-form-icon-flip uk-icon" href="#" uk-icon="icon: link"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link"><path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975"></path></svg></a>
+                        <input id="input_name" class="uk-input" type="text" placeholder="Plugin Name">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <a class="uk-form-icon uk-form-icon-flip uk-icon" href="#" uk-icon="icon: link"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link"><path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975"></path></svg></a>
+                        <input id="input_color" class="uk-input" type="text" placeholder="Badge Color">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <a class="uk-form-icon uk-form-icon-flip uk-icon" href="#" uk-icon="icon: link"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link"><path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975"></path></svg></a>
+                        <input id="input_spigot" class="uk-input" type="text" placeholder="Spigot">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <a class="uk-form-icon uk-form-icon-flip uk-icon" href="#" uk-icon="icon: link"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link"><path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975"></path></svg></a>
+                        <input id="input_bukkit" class="uk-input" type="text" placeholder="Dev Bukkit">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <a class="uk-form-icon uk-form-icon-flip uk-icon" href="#" uk-icon="icon: link"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link"><path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975"></path></svg></a>
+                        <input id="input_ore" class="uk-input" type="text" placeholder="Ore (Sponge)">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <a class="uk-form-icon uk-form-icon-flip uk-icon" href="#" uk-icon="icon: link"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link"><path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975"></path></svg></a>
+                        <input id="input_github" class="uk-input" type="text" placeholder="GitHub Repo">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-inline uk-width-1-1">
+                        <button id="button_submit" class="uk-button uk-button-primary">Submit</button>
+                        <button id="button_preview" class="uk-button uk-button-default">Preview</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

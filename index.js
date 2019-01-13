@@ -6,10 +6,32 @@
 
 const cloudscraper = require('cloudscraper')
 const express = require('express')
+const path = require('path')
 const request = require('request')
 
 const app = express()
 const port = '8080'
+
+app.use(express.static('public'))
+app.set('view engine', 'ejs')
+
+app.get('/', (req, res) => {
+    res.render('index')
+})
+
+app.get('/uikit/js/uikit.min.js', function (req, res) {
+    res.sendFile(path.join(__dirname, '/node_modules/uikit/dist/js/uikit.min.js'))
+})
+app.get('/uikit/js/uikit-icons.min.js', function (req, res) {
+    res.sendFile(path.join(__dirname, 'node_modules/uikit/dist/js/uikit-icons.min.js'))
+})
+app.get('/uikit/css/uikit.min.css', function (req, res) {
+    res.sendFile(path.join(__dirname, 'node_modules/uikit/dist/css/uikit.min.css'))
+})
+
+app.get('/jquery/jquery.min.css', function (req, res) {
+    res.sendFile(path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'))
+})
 
 function isNull(param){
     return param == null || !param || param === 'null' || param === 'undefined'

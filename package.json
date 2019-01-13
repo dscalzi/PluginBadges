@@ -22,8 +22,11 @@
   },
   "dependencies": {
     "cloudscraper": "^2.0.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "request": "^2.88.0"
+    "jquery": "^3.3.1",
+    "request": "^2.88.0",
+    "uikit": "^3.0.0-rc.26"
   },
   "engines": {
     "node": "10.x.x"

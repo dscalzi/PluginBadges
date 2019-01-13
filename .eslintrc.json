@@ -46,5 +46,25 @@
                 "argsIgnorePattern": "reject"
             }
         ]
-    }
+    },
+    "overrides": [
+        {
+          "files": [ "public/*.js" ],
+          "env": {
+            "browser": true
+          },
+          "rules": {
+            "semi": [
+                "error",
+                "always"
+            ],
+            "no-var": [
+                0
+            ],
+            "no-undef": [
+                0
+            ]
+          }
+        }
+      ]
 }
