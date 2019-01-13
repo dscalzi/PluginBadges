@@ -1,0 +1,27 @@
+{
+  "name": "pluginbadges",
+  "version": "0.0.1",
+  "description": "Download badges for plugins hosted on Spigot, DevBukkit, Ore, and GitHub.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --config .eslintrc.json ."
+  },
+  "private": true,
+  "keywords": [
+    "minecraft",
+    "spigot",
+    "bukkit",
+    "sponge",
+    "badge"
+  ],
+  "author": "Daniel Scalzi",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.12.0"
+  },
+  "dependencies": {
+    "cloudscraper": "^2.0.0",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}

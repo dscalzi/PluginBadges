@@ -1,0 +1,142 @@
+/**
+ * Copyright (c) 2019 Daniel D. Scalzi
+ * 
+ * Licensed under the MIT license (see LICENSE.txt for details).
+ */
+
+const cloudscraper = require('cloudscraper')
+const express = require('express')
+const request = require('request')
+
+const app = express()
+const port = '8080'
+
+function isNull(param){
+    return param == null || !param || param === 'null' || param === 'undefined'
+}
+
+function _doParse(body, regex){
+    const m = body.match(regex)
+    if(m == null || m.length < 2){
+        return 0
+    } else {
+        return Number.parseInt(m[1].replace(',', ''))
+    }
+}
+
+function _webCrawlParse(base, id, regex, cloudflare = false){
+
+    return new Promise((resolve, reject) => {
+        if(isNull(id)){
+            resolve(0)
+        } else {
+            const url = `${base}/${id}/`
+            if(cloudflare){
+                cloudscraper.get(url, (err, resp, body) => {
+                    if(err){
+                        //reject(err)
+                        console.error(`Request error for ${url}`, err)
+                        resolve(0)
+                    } else {
+                        resolve(_doParse(body, regex))
+                    }
+                })
+            } else {
+                request(url, (err, resp, body) => {
+                    if(err){
+                        //reject(err)
+                        console.error(`Request error for ${url}`, err)
+                        resolve(0)
+                    } else {
+                        resolve(_doParse(body, regex))
+                    }
+                })
+            }
+        }
+    })
+
+}
+
+function parseBukkit(id){
+    return _webCrawlParse('https://dev.bukkit.org/projects', id, /<div class="info-label">Total Downloads<\/div>\s*<div class="info-data">(.+)<\/div>/)
+}
+
+function parseSpigot(id){
+    return _webCrawlParse('https://www.spigotmc.org/resources', id, /<dl class="downloadCount">[\s\S]*?<dd>(.+)<\/dd>[\s\S]*?<\/dl>/, true)
+}
+
+function parseSponge(id){
+    return new Promise((resolve, reject) => {
+        if(isNull(id)){
+            resolve(0)
+        } else {
+            const url = `https://ore.spongepowered.org/api/v1/projects/${id.toLowerCase()}`
+            request(url, (err, resp, body) => {
+                if(err){
+                    //reject(err)
+                    console.error(`Request error for ${url}`, err)
+                    resolve(0)
+                } else {
+                    resolve(JSON.parse(body).downloads)
+                }
+            })
+        }
+    })
+}
+
+function parseGH(id){
+    return new Promise((resolve, reject) => {
+        if(isNull(id)){
+            resolve(0)
+        } else {
+            const url = `https://api.github.com/repos/${id}/releases`
+            request({
+                url,
+                headers: {
+                    'User-Agent': 'plugin-download-badge'
+                }
+            }, (err, resp, body) => {
+                if(err){
+                    //reject(err)
+                    console.error(`Request error for ${url}`, err)
+                    resolve(0)
+                } else {
+                    body = JSON.parse(body)
+                    let count = 0
+                    for(let release of body){
+                        for(let asset of release.assets){
+                            count += asset.download_count
+                        }
+                    }
+                    resolve(count)
+                }
+            })
+        }
+    })
+}
+
+function _cloneQuery(url){
+    const qStart = url.indexOf('?')
+    if(qStart > -1){
+        return url.substring(qStart, url.length)
+    }
+}
+
+app.get('/api/:name-:color.svg', async (req, res) => {
+    const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
+
+    const bukkitDL = await parseBukkit(req.query.bukkit)
+    const spigotDL = await parseSpigot(req.query.spigot)
+    const spongeDL = await parseSponge(req.query.sponge)
+    const ghDL = await parseGH(gh)
+
+    const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+spongeDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}`
+    res.status(200).redirect(url)
+    
+})
+
+const server = app.listen(port, () => {
+    console.log(`App is listening on port ${port}`)
+})
+
+module.exports = server
