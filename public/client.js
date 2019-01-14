@@ -12,7 +12,7 @@ function buildQueryString(){
 
     q += calcVal(document.getElementById('input_bukkit').value.match(REGEX_DEVBUKKIT), 1, 'bukkit');
     q += calcVal(document.getElementById('input_spigot').value.match(REGEX_SPIGOT), 1, 'spigot');
-    q += calcVal(document.getElementById('input_ore').value.match(REGEX_ORE), 1, 'sponge');
+    q += calcVal(document.getElementById('input_ore').value.match(REGEX_ORE), 1, 'ore');
     const match = document.getElementById('input_github').value.match(REGEX_GITHUB);
     q += calcVal(match, 1, 'ghuser');
     q += calcVal(match, 2, 'ghrepo');

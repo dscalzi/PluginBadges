@@ -87,7 +87,7 @@ function parseSpigot(id){
     return _webCrawlParse('https://www.spigotmc.org/resources', id, /<dl class="downloadCount">[\s\S]*?<dd>(.+)<\/dd>[\s\S]*?<\/dl>/, true)
 }
 
-function parseSponge(id){
+function parseOre(id){
     return new Promise((resolve, reject) => {
         if(isNull(id)){
             resolve(0)
@@ -149,10 +149,10 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
 
     const bukkitDL = await parseBukkit(req.query.bukkit)
     const spigotDL = await parseSpigot(req.query.spigot)
-    const spongeDL = await parseSponge(req.query.sponge)
+    const oreDL = await parseOre(req.query.ore)
     const ghDL = await parseGH(gh)
 
-    const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+spongeDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}`
+    const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+oreDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}`
     res.status(200).redirect(url)
     
 })

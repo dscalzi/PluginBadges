@@ -20,8 +20,8 @@ Supports:
   * **Spigot** (`https://www.spigotmc.org/resources/<id>`)
     * `?spigot=<id>`
   * **Ore (Sponge)** ([Plugin Id](https://docs.spongepowered.org/stable/en/ore/routes/project.html))
-    * `?sponge=<id>`
-  * **GitHub** (ex. `https://github.com/<user>/<repo>`)
+    * `?ore=<id>`
+  * **GitHub** (`https://github.com/<user>/<repo>`)
     * `?ghuser=<user>`
     * `?ghrepo=<repo>`
 
@@ -29,6 +29,6 @@ You can connect multiple parameters with `&`. Supports all https://shields.io/ p
 
 Ex.
 
-https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&sponge=skychanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge
+https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&ore=skychanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge
 
-![Example Image](https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&sponge=skychanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge)
+![Example Image](https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&ore=skychanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge)
