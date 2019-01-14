@@ -26,7 +26,7 @@ function buildQueryString(){
 }
 
 function buildFullUrl(){
-    return 'https://pluginbadges.glitch.me/api/v1/dl' + (document.getElementById('input_badge_name').value || 'Downloads') + '-' + (document.getElementById('input_color').value || 'limegreen') + '.svg' + buildQueryString();
+    return 'https://pluginbadges.glitch.me/api/v1/dl/' + (document.getElementById('input_badge_name').value || 'Downloads') + '-' + (document.getElementById('input_color').value || 'limegreen') + '.svg' + buildQueryString();
 }
 
 $(function(){
