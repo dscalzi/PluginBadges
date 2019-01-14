@@ -153,6 +153,7 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const ghDL = await parseGH(gh)
 
     const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+oreDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}`
+    res.set('Cache-Control', `max-age=${req.query.maxAge || '300'}`)
     res.status(200).redirect(url)
     
 })
