@@ -1,7 +1,7 @@
-const REGEX_DEVBUKKIT = /dev.bukkit.org\/projects\/(.+)/;
-const REGEX_SPIGOT = /spigotmc.org\/resources\/(.+)/;
-const REGEX_ORE = /ore.spongepowered.org\/.+\/(.+)/;
-const REGEX_GITHUB = /github.com\/(.+)\/(.+)/;
+const REGEX_DEVBUKKIT = /dev.bukkit.org\/projects\/([^/]+)/;
+const REGEX_SPIGOT = /spigotmc.org\/resources\/([^/]+)/;
+const REGEX_ORE = /ore.spongepowered.org\/[^/]+\/([^/]+).*?/;
+const REGEX_GITHUB = /github.com\/([^/]+)\/([^/]+)/;
 
 function calcVal(match, index, key){
     return (match != null && match.length > index) ? '&' + key + '=' + match[index] : '';
