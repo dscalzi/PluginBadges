@@ -16,6 +16,7 @@ function buildQueryString(){
     const match = document.getElementById('input_github').value.match(REGEX_GITHUB);
     q += calcVal(match, 1, 'ghuser');
     q += calcVal(match, 2, 'ghrepo');
+    q += '&style=' + document.getElementById('input_style').value;
 
     if(q.length > 0){
         q = '?' + q.substring(1, q.length);
@@ -25,7 +26,7 @@ function buildQueryString(){
 }
 
 function buildFullUrl(){
-    return 'https://pluginbadges.glitch.me/api/' + document.getElementById('input_badge_name').value + '-' + document.getElementById('input_color').value + '.svg' + buildQueryString();
+    return 'https://pluginbadges.glitch.me/api/v1/dl' + (document.getElementById('input_badge_name').value || 'Downloads') + '-' + (document.getElementById('input_color').value || 'limegreen') + '.svg' + buildQueryString();
 }
 
 $(function(){
@@ -37,6 +38,7 @@ $(function(){
         document.getElementById('input_spigot').value = '';
         document.getElementById('input_ore').value = '';
         document.getElementById('input_github').value = '';
+        document.getElementById('input_style').selectedIndex = 0;
     };
 
     document.getElementById('button_submit').onclick = e => {
@@ -44,6 +46,12 @@ $(function(){
         document.getElementById('output_link').value = url;
         document.getElementById('img_preview').src = url;
     };
+
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter'){
+            document.getElementById('button_submit').click();
+        }
+    });
 
 });
 

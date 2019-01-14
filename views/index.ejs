@@ -30,12 +30,12 @@
         <form class="uk-form-stacked uk-child-width-auto@m uk-grid">
             <div class="uk-column-1-1 uk-width-1-1">
 
-                <div class="uk-grid-small uk-child-width-1-2 uk-grid" uk-grid>
+                <div class="uk-grid-small uk-child-width-1-3 uk-grid" uk-grid>
                     <div class="uk-first-column">
                         <div class="uk-margin">
                             <div class="uk-inline uk-width-1-1">
                                 <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: pencil"></a>
-                                <input id="input_badge_name" class="uk-input" type="text" placeholder="Plugin Name">
+                                <input id="input_badge_name" class="uk-input" type="text" placeholder="Badge Name">
                             </div>
                         </div>
                     </div>
@@ -47,33 +47,57 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                
-                <div class="uk-margin">
-                    <div class="uk-inline uk-width-1-1">
-                        <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
-                        <input id="input_spigot" class="uk-input" type="text" placeholder="Spigot">
+                    <div>
+                        <div class="uk-margin">
+                            <div class="uk-inline uk-width-1-1">
+                                <select class="uk-select" id="input_style">
+                                    <option value="flat">Flat</option>
+                                    <option value="plastic">Plastic</option>
+                                    <option value="flat-square">Flat Square</option>
+                                    <option value="for-the-badge">For the Badge</option>
+                                    <option value="popout">Popout</option>
+                                    <option value="popout-square">Popout Square</option>
+                                    <option value="social">Social</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="uk-margin">
-                    <div class="uk-inline uk-width-1-1">
-                        <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
-                        <input id="input_bukkit" class="uk-input" type="text" placeholder="Dev Bukkit">
+
+                <div class="uk-grid-small uk-child-width-1-3 uk-grid" uk-grid>
+                    <div class="uk-first-column">
+                        <div class="uk-margin">
+                            <div class="uk-inline uk-width-1-1">
+                                <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
+                                <input id="input_spigot" class="uk-input" type="text" placeholder="Spigot">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uk-margin">
+                            <div class="uk-inline uk-width-1-1">
+                                <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
+                                <input id="input_bukkit" class="uk-input" type="text" placeholder="Dev Bukkit">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uk-margin">
+                            <div class="uk-inline uk-width-1-1">
+                                <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
+                                <input id="input_ore" class="uk-input" type="text" placeholder="Ore (Sponge)">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="uk-margin">
-                    <div class="uk-inline uk-width-1-1">
-                        <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
-                        <input id="input_ore" class="uk-input" type="text" placeholder="Ore (Sponge)">
-                    </div>
-                </div>
+
                 <div class="uk-margin">
                     <div class="uk-inline uk-width-1-1">
                         <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: link"></a>
                         <input id="input_github" class="uk-input" type="text" placeholder="GitHub Repo">
                     </div>
                 </div>
+
                 <div class="uk-margin">
                     <div class="uk-inline uk-width-1-1">
                         <button id="button_submit" class="uk-button uk-button-primary" type="button">Submit</button>
@@ -84,12 +108,12 @@
                 <div class="uk-margin-medium-top">
                     <div class="uk-grid-small uk-grid" uk-grid>
                         <div class="uk-first-column" style="display: flex;align-items: center;">
-                            <img id="img_preview" src="https://pluginbadges.glitch.me/api/SkyChanger-green.svg?bukkit=skychanger&spigot=skychanger.37524/&sponge=SkyChanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge"></img>
+                            <img id="img_preview" src="https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-green.svg?bukkit=skychanger&spigot=skychanger.37524/&sponge=SkyChanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge"></img>
                         </div>
                         <div class="uk-width-expand">
                             <div class="uk-inline uk-width-1-1">
                                 <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: code"></a>
-                                <input id="output_link" class="uk-input" type="text" value="https://pluginbadges.glitch.me/api/SkyChanger-green.svg?bukkit=skychanger&spigot=skychanger.37524/&sponge=SkyChanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge">
+                                <input id="output_link" class="uk-input" type="text" onClick="this.setSelectionRange(0, this.value.length)" value="https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-green.svg?bukkit=skychanger&spigot=skychanger.37524/&sponge=SkyChanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge">
                             </div>
                         </div>
                     </div>

@@ -144,7 +144,7 @@ function _cloneQuery(url){
     }
 }
 
-app.get('/api/:name-:color.svg', async (req, res) => {
+app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
 
     const bukkitDL = await parseBukkit(req.query.bukkit)
