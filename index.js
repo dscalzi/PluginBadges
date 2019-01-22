@@ -144,6 +144,10 @@ function _cloneQuery(url){
     }
 }
 
+function _prepareMaxAge(url){
+    return (url.indexOf('?') > -1 ? '?' : '&') + 'max-age=120'
+}
+
 app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
 
@@ -152,8 +156,8 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const oreDL = await parseOre(req.query.ore)
     const ghDL = await parseGH(gh)
 
-    const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+oreDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}`
-    res.set('Cache-Control', 'no-cache'/*`max-age=${req.query.maxAge || '300'}`*/)
+    const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+oreDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}${_prepareMaxAge(req.url)}`
+    res.set('Cache-Control', 'max-age=120')
     res.status(200).redirect(url)
     
 })
