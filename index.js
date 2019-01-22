@@ -145,7 +145,7 @@ function _cloneQuery(url){
 }
 
 function _prepareMaxAge(url){
-    return (url.indexOf('?') > -1 ? '?' : '&') + 'max-age=120'
+    return (url.indexOf('?') > -1 ? '&' : '?') + 'max-age=120'
 }
 
 app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
