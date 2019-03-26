@@ -4,8 +4,10 @@
  * Licensed under the MIT license (see LICENSE.txt for details).
  */
 
+const { BadgeFactory } = require('gh-badges')
 const cloudscraper = require('cloudscraper')
 const express = require('express')
+const mime = require('mime')
 const path = require('path')
 const request = require('request')
 
@@ -137,17 +139,6 @@ function parseGH(id){
     })
 }
 
-function _cloneQuery(url){
-    const qStart = url.indexOf('?')
-    if(qStart > -1){
-        return url.substring(qStart, url.length)
-    }
-}
-
-function _prepareMaxAge(url){
-    return (url.indexOf('?') > -1 ? '&' : '?') + 'maxAge=120'
-}
-
 app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
 
@@ -156,9 +147,20 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const oreDL = await parseOre(req.query.ore)
     const ghDL = await parseGH(gh)
 
-    const url = `https://img.shields.io/badge/${req.params.name}-${bukkitDL+spigotDL+oreDL+ghDL}-${req.params.color}.svg${_cloneQuery(req.url)}${_prepareMaxAge(req.url)}`
+    const bf = new BadgeFactory()
+
+    const format = {
+        text: [req.params.name || 'Downloads', bukkitDL+spigotDL+oreDL+ghDL],
+        color: req.params.color || 'limegreen',
+        template: req.query.style || 'flat',
+        labelColor: req.query.labelColor || '#555',
+        logo: req.query.logo
+    }
+
+    const svg = bf.create(format)
+
     res.set('Cache-Control', 'max-age=120')
-    res.status(200).redirect(url)
+    res.type(mime.getType('svg')).status(200).send(svg)
     
 })
 
