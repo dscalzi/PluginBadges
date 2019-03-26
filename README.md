@@ -1,6 +1,6 @@
 ## Plugin Badges
 
-Download badges for plugins hosted on Spigot, DevBukkit, Ore, and GitHub. Powered by https://shields.io/
+Download badges for plugins hosted on Spigot, DevBukkit, Ore, and GitHub.
 
 Create badges using the following website. https://pluginbadges.glitch.me/
 
@@ -8,7 +8,7 @@ Create badges using the following website. https://pluginbadges.glitch.me/
 
 ### How it Works
 
-The download numbers will be pulled from each site specified and combined. The total value will be displayed on the badge. The glitch link will redirect to the properly configured badge on shields.io.
+The download numbers will be pulled from each site specified and combined. The total value will be displayed on the badge.
 
 ---
 
@@ -25,7 +25,7 @@ Supports:
     * `?ghuser=<user>`
     * `?ghrepo=<repo>`
 
-You can connect multiple parameters with `&`. Supports all https://shields.io/ parameters.
+You can connect multiple parameters with `&`. Supports most https://shields.io/ parameters. Please file an issue if any are missing.
 
 Ex.
 
