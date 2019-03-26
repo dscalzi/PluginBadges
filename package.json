@@ -18,15 +18,15 @@
   "author": "Daniel Scalzi",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^5.12.0"
+    "eslint": "^5.15.3"
   },
   "dependencies": {
-    "cloudscraper": "^2.0.0",
+    "cloudscraper": "^3.3.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "jquery": "^3.3.1",
     "request": "^2.88.0",
-    "uikit": "^3.0.0-rc.26"
+    "uikit": "^3.0.3"
   },
   "engines": {
     "node": "10.x.x"
