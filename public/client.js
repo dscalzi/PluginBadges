@@ -32,13 +32,13 @@ function buildFullUrl(){
 $(function(){
 
     document.getElementById('button_clear').onclick = e => {
-        document.getElementById('input_badge_name').value = '';
-        document.getElementById('input_color').value = '';
-        document.getElementById('input_bukkit').value = '';
-        document.getElementById('input_spigot').value = '';
-        document.getElementById('input_ore').value = '';
-        document.getElementById('input_github').value = '';
-        document.getElementById('input_style').selectedIndex = 0;
+        var el = null;
+        for(el of document.getElementsByClassName('cl_val')){
+            el.value = '';
+        }
+        for(el of document.getElementsByClassName('cl_sel')){
+            el.selectedIndex = 0;
+        }
     };
 
     document.getElementById('button_submit').onclick = e => {

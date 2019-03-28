@@ -25,14 +25,14 @@ app.get('/uikit/js/uikit.min.js', function (req, res) {
     res.sendFile(path.join(__dirname, '/node_modules/uikit/dist/js/uikit.min.js'))
 })
 app.get('/uikit/js/uikit-icons.min.js', function (req, res) {
-    res.sendFile(path.join(__dirname, 'node_modules/uikit/dist/js/uikit-icons.min.js'))
+    res.sendFile(path.join(__dirname, '/node_modules/uikit/dist/js/uikit-icons.min.js'))
 })
 app.get('/uikit/css/uikit.min.css', function (req, res) {
-    res.sendFile(path.join(__dirname, 'node_modules/uikit/dist/css/uikit.min.css'))
+    res.sendFile(path.join(__dirname, '/node_modules/uikit/dist/css/uikit.min.css'))
 })
 
 app.get('/jquery/jquery.min.css', function (req, res) {
-    res.sendFile(path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'))
+    res.sendFile(path.join(__dirname, '/node_modules/jquery/dist/jquery.min.js'))
 })
 
 function isNull(param){
@@ -154,7 +154,8 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
         color: req.params.color || 'limegreen',
         template: req.query.style || 'flat',
         labelColor: req.query.labelColor || '#555',
-        logo: req.query.logo
+        logo: req.query.logo,
+        links : ['https://github.com/dscalzi/PluginBadges/', '']
     }
 
     const svg = bf.create(format)
