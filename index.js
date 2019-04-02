@@ -6,10 +6,19 @@
 
 const { BadgeFactory } = require('gh-badges')
 const cloudscraper = require('cloudscraper')
+const crypto = require('crypto')
 const express = require('express')
+const LRU = require('lru-cache')
 const mime = require('mime')
 const path = require('path')
 const request = require('request')
+
+const maxAgeSeconds = 3600
+
+const cache = new LRU({
+    max: 5000,
+    maxAge: maxAgeSeconds * 1000
+})
 
 const app = express()
 const port = '8080'
@@ -142,15 +151,29 @@ function parseGH(id){
 app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
 
-    const bukkitDL = await parseBukkit(req.query.bukkit)
-    const spigotDL = await parseSpigot(req.query.spigot)
-    const oreDL = await parseOre(req.query.ore)
-    const ghDL = await parseGH(gh)
+    let downloads = 0
+
+    const cKey = crypto.createHash('md5').update([gh, req.query.bukkit, req.query.spigot, req.query.ore].filter(Boolean).join('')).digest('hex')
+    const cValue = cache.get(cKey)
+
+    if(cValue != null){
+        downloads = cValue
+    } else {
+        const bukkitDL = await parseBukkit(req.query.bukkit)
+        const spigotDL = await parseSpigot(req.query.spigot)
+        const oreDL = await parseOre(req.query.ore)
+        const ghDL = await parseGH(gh)
+        downloads =  bukkitDL+spigotDL+oreDL+ghDL
+
+        if(downloads > 0){
+            cache.set(cKey, downloads)
+        }
+    }
 
     const bf = new BadgeFactory()
 
     const format = {
-        text: [req.params.name || 'Downloads', bukkitDL+spigotDL+oreDL+ghDL],
+        text: [req.params.name || 'Downloads', downloads],
         color: req.params.color || 'limegreen',
         template: req.query.style || 'flat',
         labelColor: req.query.labelColor || '#555',
@@ -160,7 +183,7 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
 
     const svg = bf.create(format)
 
-    res.set('Cache-Control', 'max-age=120')
+    res.set('Cache-Control', `max-age=${maxAgeSeconds}`)
     res.type(mime.getType('svg')).status(200).send(svg)
     
 })
