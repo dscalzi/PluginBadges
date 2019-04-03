@@ -3,6 +3,7 @@
  * 
  * Licensed under the MIT license (see LICENSE.txt for details).
  */
+require('dotenv').config()
 
 const { BadgeFactory } = require('gh-badges')
 const cloudscraper = require('cloudscraper')
@@ -117,12 +118,27 @@ function parseOre(id){
     })
 }
 
+let GH_RATE_LIMIT = -1
+
 function parseGH(id){
     return new Promise((resolve, reject) => {
-        if(isNull(id)){
+        if(new Date().getTime() < GH_RATE_LIMIT){
+
+            console.log('Github Rate Limited. Unable to serve request.')
             resolve(0)
+
+        } else if(isNull(id)){
+
+            resolve(0)
+
         } else {
-            const url = `https://api.github.com/repos/${id}/releases`
+
+            let url = `https://api.github.com/repos/${id}/releases`
+
+            if(process.env.GH_CLIENT_ID != null && process.env.GH_CLIENT_SECRET != null){
+                url += `?client_id=${process.env.GH_CLIENT_ID}&client_secret=${process.env.GH_CLIENT_SECRET}`
+            }
+
             request({
                 url,
                 headers: {
@@ -130,23 +146,72 @@ function parseGH(id){
                 }
             }, (err, resp, body) => {
                 if(err){
-                    //reject(err)
                     console.error(`Request error for ${url}`, err)
                     resolve(0)
                 } else {
-                    body = JSON.parse(body)
-                    let count = 0
-                    for(let release of body){
-                        for(let asset of release.assets){
-                            count += asset.download_count
+                    if(resp.statusCode === 200){
+
+                        body = JSON.parse(body)
+                        let count = 0
+                        for(let release of body){
+                            for(let asset of release.assets){
+                                count += asset.download_count
+                            }
                         }
+
+                        if(Number.parseInt(resp.headers['x-ratelimit-remaining']) === 0){
+                            GH_RATE_LIMIT = Number.parseInt(resp.headers['x-ratelimit-reset'])*1000
+                            console.log('Github Rate Limit Exceeded. Resets at', new Date(GH_RATE_LIMIT))
+                        }
+
+                        resolve(count)
+
+                    } else {
+                        resolve(0)
                     }
-                    resolve(count)
                 }
             })
         }
     })
 }
+
+/*
+ * Utility Functions from shields. 
+ * https://github.com/badges/shields/blob/master/lib/logos.js#L19
+ */
+
+function prependPrefix(s, prefix) {
+    if (s === undefined) {
+        return undefined
+    }
+  
+    s = `${s}`
+  
+    if (s.startsWith(prefix)) {
+        return s
+    } else {
+        return prefix + s
+    }
+}
+function isDataUrl(s) {
+    return s !== undefined && /^(data:)([^;]+);([^,]+),(.+)$/.test(s)
+}
+// +'s are replaced with spaces when used in query params, this returns them
+// to +'s, then removes remaining whitespace.
+// https://github.com/badges/shields/pull/1546
+function decodeDataUrlFromQueryParam(value) {
+    if (typeof value !== 'string') {
+        return undefined
+    }
+    const maybeDataUrl = prependPrefix(value, 'data:')
+        .replace(/ /g, '+')
+        .replace(/\s/g, '')
+    return isDataUrl(maybeDataUrl) ? maybeDataUrl : undefined
+}
+
+/*
+ * End Utility Functions.
+ */
 
 app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
@@ -174,11 +239,12 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
 
     const format = {
         text: [req.params.name || 'Downloads', downloads],
-        color: req.params.color || 'limegreen',
+        colorB: req.params.color || 'limegreen',
+        colorA: req.query.labelColor || '#555',
         template: req.query.style || 'flat',
-        labelColor: req.query.labelColor || '#555',
-        logo: req.query.logo,
-        links : ['https://github.com/dscalzi/PluginBadges/', '']
+        logo: decodeDataUrlFromQueryParam(req.query.logo) || req.query.logo,
+        logoWidth: req.query.logoWidth != null ? Number.parseInt(req.query.logoWidth) : undefined,
+        links : ['https://github.com/dscalzi/PluginBadges/', ''],
     }
 
     const svg = bf.create(format)
