@@ -213,12 +213,11 @@ function decodeDataUrlFromQueryParam(value) {
  * End Utility Functions.
  */
 
-app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
-    const gh = isNull(req.query.ghuser) || isNull(req.query.ghrepo) ? null : `${req.query.ghuser}/${req.query.ghrepo}`
+app.get(/\/api\/v1\/dl\/(.*)-(.*).svg/, async (req, res) => {
 
     let downloads = 0
 
-    const cKey = crypto.createHash('md5').update([gh, req.query.bukkit, req.query.spigot, req.query.ore].filter(Boolean).join('')).digest('hex')
+    const cKey = crypto.createHash('md5').update([req.query.github, req.query.bukkit, req.query.spigot, req.query.ore].filter(Boolean).join('')).digest('hex')
     const cValue = cache.get(cKey)
 
     if(cValue != null){
@@ -227,7 +226,7 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
         const bukkitDL = await parseBukkit(req.query.bukkit)
         const spigotDL = await parseSpigot(req.query.spigot)
         const oreDL = await parseOre(req.query.ore)
-        const ghDL = await parseGH(gh)
+        const ghDL = await parseGH(req.query.github)
         downloads =  bukkitDL+spigotDL+oreDL+ghDL
 
         if(downloads > 0){
@@ -238,8 +237,8 @@ app.get('/api/v1/dl/:name-:color.svg', async (req, res) => {
     const bf = new BadgeFactory()
 
     const format = {
-        text: [req.params.name || 'Downloads', downloads],
-        colorB: req.params.color || 'limegreen',
+        text: [req.params[0], downloads],
+        colorB: req.params[1] || 'limegreen',
         colorA: req.query.labelColor || '#555',
         template: req.query.style || 'flat',
         logo: decodeDataUrlFromQueryParam(req.query.logo) || req.query.logo,

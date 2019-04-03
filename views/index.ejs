@@ -10,7 +10,7 @@
     <script src="client.js"></script>
 </head>
 <body>
-    <div class="uk-navbar-container uk-sticky uk-sticky-fixed uk-active uk-sticky-below">
+    <div class="uk-navbar-container uk-sticky uk-sticky-fixed uk-active uk-sticky-below" uk-sticky>
         <div class="uk-container uk-container-expand">
             <nav class="uk-navbar">
                 <div class="uk-navbar-left">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="uk-container uk-margin-medium-top uk-align-center uk-width-1-2">
+    <div class="uk-container uk-margin-medium-top uk-align-center uk-container-xsmall">
         <h2>Create Your Badge</h2>
         <h5 style="margin-top:0px;">This is a basic generator to get you started. <strong>All fields are optional.</strong><br><a href="https://github.com/dscalzi/PluginBadges">View all supported parameters.</a></h5>
         <form class="uk-form-stacked uk-child-width-auto@m uk-grid">
@@ -108,12 +108,12 @@
                 <div class="uk-margin-medium-top">
                     <div class="uk-grid-small uk-grid" uk-grid>
                         <div class="uk-first-column" style="display: flex;align-items: center;">
-                            <img id="img_preview" src="https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?bukkit=skychanger&spigot=skychanger.37524&ore=SkyChanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge"></img>
+                            <img id="img_preview" src="https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?bukkit=skychanger&spigot=skychanger.37524&ore=SkyChanger&github=dscalzi/SkyChanger&style=for-the-badge"></img>
                         </div>
                         <div class="uk-width-expand">
                             <div class="uk-inline uk-width-1-1">
                                 <a class="uk-form-icon uk-form-icon-flip uk-icon" uk-icon="icon: code"></a>
-                                <input id="output_link" class="uk-input" type="text" onClick="this.setSelectionRange(0, this.value.length)" value="https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?bukkit=skychanger&spigot=skychanger.37524&ore=SkyChanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge">
+                                <input id="output_link" class="uk-input" type="text" onClick="this.setSelectionRange(0, this.value.length)" value="https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?bukkit=skychanger&spigot=skychanger.37524&ore=SkyChanger&github=dscalzi/SkyChanger&style=for-the-badge">
                             </div>
                         </div>
                     </div>

@@ -20,18 +20,17 @@ Supports:
   * **Ore (Sponge)** ([Plugin Id](https://docs.spongepowered.org/stable/en/ore/routes/project.html))
     * `?ore=<id>`
   * **GitHub** (`https://github.com/<user>/<repo>`)
-    * `?ghuser=<user>`
-    * `?ghrepo=<repo>`
+    * `?github=<user>/<repo>`
 
 You can connect multiple parameters with `&`. Supports most https://shields.io/ parameters. Please file an issue if any are missing.
 
 #### Example
 
 ```
-https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&ore=skychanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge
+https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&ore=skychanger&github=dscalzi/SkyChanger&style=for-the-badge
 ```
 
-![Example Image](https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&ore=skychanger&ghuser=dscalzi&ghrepo=SkyChanger&style=for-the-badge)
+![Example Image](https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychanger.37524&bukkit=skychanger&ore=skychanger&github=dscalzi/SkyChanger&style=for-the-badge)
 
 ### Supported Query Terms
 
