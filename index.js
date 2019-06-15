@@ -238,8 +238,8 @@ app.get(/\/api\/v1\/dl\/(.*)-(.*).svg/, async (req, res) => {
 
     const format = {
         text: [req.params[0], downloads],
-        colorB: req.params[1] || 'limegreen',
-        colorA: req.query.labelColor || '#555',
+        color: req.params[1] || 'limegreen',
+        labelColor: req.query.labelColor || '#555',
         template: req.query.style || 'flat',
         logo: decodeDataUrlFromQueryParam(req.query.logo) || req.query.logo,
         logoWidth: req.query.logoWidth != null ? Number.parseInt(req.query.logoWidth) : undefined,

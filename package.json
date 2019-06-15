@@ -21,16 +21,16 @@
     "eslint": "^5.16.0"
   },
   "dependencies": {
-    "cloudscraper": "^4.1.0",
+    "cloudscraper": "^4.1.2",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "gh-badges": "^2.1.0",
+    "express": "^4.17.1",
+    "gh-badges": "^2.2.1",
     "jquery": "^3.4.1",
     "lru-cache": "^5.1.1",
-    "mime": "^2.4.2",
+    "mime": "^2.4.4",
     "request": "^2.88.0",
-    "uikit": "^3.1.4"
+    "uikit": "^3.1.5"
   },
   "engines": {
     "node": "10.x.x"
