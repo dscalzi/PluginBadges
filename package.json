@@ -18,22 +18,22 @@
   "author": "Daniel Scalzi",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "eslint": "^6.0.1"
   },
   "dependencies": {
     "cloudscraper": "^4.1.2",
     "dotenv": "^8.0.0",
-    "ejs": "^2.6.1",
+    "ejs": "^2.6.2",
     "express": "^4.17.1",
     "gh-badges": "^2.2.1",
     "jquery": "^3.4.1",
     "lru-cache": "^5.1.1",
     "mime": "^2.4.4",
     "request": "^2.88.0",
-    "uikit": "^3.1.5"
+    "uikit": "^3.1.6"
   },
   "engines": {
-    "node": "10.x.x"
+    "node": "12.x.x"
   },
   "repository": {
     "url": "https://github.com/dscalzi/PluginBadges"
