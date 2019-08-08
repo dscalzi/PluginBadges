@@ -1,6 +1,6 @@
 {
   "name": "pluginbadges",
-  "version": "0.0.1",
+  "version": "1.0.0-pre.1",
   "description": "Download badges for plugins hosted on Spigot, DevBukkit, Ore, and GitHub.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "author": "Daniel Scalzi",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.0.1"
+    "eslint": "^6.1.0"
   },
   "dependencies": {
     "cloudscraper": "^4.1.2",
@@ -30,7 +30,7 @@
     "lru-cache": "^5.1.1",
     "mime": "^2.4.4",
     "request": "^2.88.0",
-    "uikit": "^3.1.6"
+    "uikit": "^3.1.7"
   },
   "engines": {
     "node": "12.x.x"
