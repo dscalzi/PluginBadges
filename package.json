@@ -18,11 +18,11 @@
   "author": "Daniel Scalzi",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.1.0"
+    "eslint": "^6.2.2"
   },
   "dependencies": {
-    "cloudscraper": "^4.1.2",
-    "dotenv": "^8.0.0",
+    "cloudscraper": "^4.1.4",
+    "dotenv": "^8.1.0",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "gh-badges": "^2.2.1",
