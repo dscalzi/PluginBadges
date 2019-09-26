@@ -92,7 +92,7 @@ function _webCrawlParse(base, id, regex, cloudflare = false){
 }
 
 function parseBukkit(id){
-    return _webCrawlParse('https://dev.bukkit.org/projects', id, /<div class="info-label">Total Downloads<\/div>\s*<div class="info-data">(.+)<\/div>/)
+    return _webCrawlParse('https://dev.bukkit.org/projects', id, /<div class="info-label">Total Downloads<\/div>\s*<div class="info-data">(.+)<\/div>/, true)
 }
 
 function parseSpigot(id){
