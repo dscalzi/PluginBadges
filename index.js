@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Daniel D. Scalzi
+ * Copyright (c) 2019-2020 Daniel D. Scalzi
  * 
  * Licensed under the MIT license (see LICENSE.txt for details).
  */
