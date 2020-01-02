@@ -69,8 +69,10 @@ function _webCrawlParse(base, id, regex, cloudflare = false){
                 cloudscraper.get(url, (err, resp, body) => {
                     if(err){
                         //reject(err)
-                        console.error(`Request error for ${url}`, err)
-                        resolve(0)
+                        console.error(`Cloudflare Request error for ${url}. Not caching result..`, err)
+                        // -1 indicates error (do not cache if cloudflare error)
+                        // usually resolved by sending another request.
+                        resolve(-1)
                     } else {
                         resolve(_doParse(body, regex))
                     }
@@ -223,13 +225,18 @@ app.get(/\/api\/v1\/dl\/(.*)-(.*).svg/, async (req, res) => {
     if(cValue != null){
         downloads = cValue
     } else {
-        const bukkitDL = await parseBukkit(req.query.bukkit)
-        const spigotDL = await parseSpigot(req.query.spigot)
-        const oreDL = await parseOre(req.query.ore)
-        const ghDL = await parseGH(req.query.github)
-        downloads =  bukkitDL+spigotDL+oreDL+ghDL
+        const values = [
+            await parseBukkit(req.query.bukkit),
+            await parseSpigot(req.query.spigot),
+            await parseOre(req.query.ore),
+            await parseGH(req.query.github)
+        ]
 
-        if(downloads > 0){
+        downloads = values.reduce((total, val) => total + Math.max(0, val), 0)
+        const hasErrors = values.reduce((hasErrors, val) => hasErrors || val < 0, false)
+
+        // Dont cache with errors.
+        if(downloads > 0 && !hasErrors){
             cache.set(cKey, downloads)
         }
     }
