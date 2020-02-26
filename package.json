@@ -21,7 +21,7 @@
     "eslint": "^6.8.0"
   },
   "dependencies": {
-    "cloudscraper": "^4.5.0",
+    "cloudscraper": "^4.6.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
@@ -29,8 +29,8 @@
     "jquery": "^3.4.1",
     "lru-cache": "^5.1.1",
     "mime": "^2.4.4",
-    "request": "^2.88.0",
-    "uikit": "^3.2.6"
+    "request": "^2.88.2",
+    "uikit": "^3.3.3"
   },
   "engines": {
     "node": "12.x.x"
