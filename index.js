@@ -5,7 +5,7 @@
  */
 require('dotenv').config()
 
-const { BadgeFactory } = require('gh-badges')
+const { makeBadge } = require('badge-maker')
 const cloudscraper = require('cloudscraper')
 const crypto = require('crypto')
 const express = require('express')
@@ -177,44 +177,6 @@ function parseGH(id){
     })
 }
 
-/*
- * Utility Functions from shields. 
- * https://github.com/badges/shields/blob/master/lib/logos.js#L19
- */
-
-function prependPrefix(s, prefix) {
-    if (s === undefined) {
-        return undefined
-    }
-  
-    s = `${s}`
-  
-    if (s.startsWith(prefix)) {
-        return s
-    } else {
-        return prefix + s
-    }
-}
-function isDataUrl(s) {
-    return s !== undefined && /^(data:)([^;]+);([^,]+),(.+)$/.test(s)
-}
-// +'s are replaced with spaces when used in query params, this returns them
-// to +'s, then removes remaining whitespace.
-// https://github.com/badges/shields/pull/1546
-function decodeDataUrlFromQueryParam(value) {
-    if (typeof value !== 'string') {
-        return undefined
-    }
-    const maybeDataUrl = prependPrefix(value, 'data:')
-        .replace(/ /g, '+')
-        .replace(/\s/g, '')
-    return isDataUrl(maybeDataUrl) ? maybeDataUrl : undefined
-}
-
-/*
- * End Utility Functions.
- */
-
 app.get(/\/api\/v1\/dl\/(.*)-(.*).svg/, async (req, res) => {
 
     let downloads = 0
@@ -241,22 +203,23 @@ app.get(/\/api\/v1\/dl\/(.*)-(.*).svg/, async (req, res) => {
         }
     }
 
-    const bf = new BadgeFactory()
-
     const format = {
-        text: [req.params[0], downloads],
-        color: req.params[1] || 'limegreen',
+        label: req.params[0],
+        message: String(downloads),
         labelColor: req.query.labelColor || '#555',
-        template: req.query.style || 'flat',
-        logo: decodeDataUrlFromQueryParam(req.query.logo) || req.query.logo,
-        logoWidth: req.query.logoWidth != null ? Number.parseInt(req.query.logoWidth) : undefined,
-        links : ['https://github.com/dscalzi/PluginBadges/', ''],
+        color: req.params[1] || 'limegreen',
+        style: req.query.style || 'flat'
     }
 
-    const svg = bf.create(format)
+    try {
+        const svg = makeBadge(format)
 
-    res.set('Cache-Control', `max-age=${maxAgeSeconds}`)
-    res.type(mime.getType('svg')).status(200).send(svg)
+        res.set('Cache-Control', `max-age=${maxAgeSeconds}`)
+        res.type(mime.getType('svg')).status(200).send(svg)
+    } catch(err) {
+        res.status(400).send(err.message)
+    }
+    
     
 })
 
