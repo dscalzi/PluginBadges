@@ -34,13 +34,10 @@ https://pluginbadges.glitch.me/api/v1/dl/SkyChanger-limegreen.svg?spigot=skychan
 
 ### Supported Query Terms
 
-* `?style=` `[plastic, flat, flat-square, for-the-badge, popout, popout-square, social]`
+* `?style=` `[plastic, flat, flat-square, for-the-badge, social]`
   * Demos can be viewed on https://shields.io/#styles
 
 * `?labelColor=` The color of the left side of the badge.
-* `?logo=` Insert custom logo image (≥ 14px high)
-  * Accepts URLs to images as awell as base64 (ex. `?logo=data:image/png;base64,…`)
-* `?logoWidth=` Set the horizontal space to give to the logo
 
 ---
 
