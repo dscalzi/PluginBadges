@@ -6,7 +6,7 @@
 require('dotenv').config()
 
 const { makeBadge } = require('badge-maker')
-const cloudscraper = require('cloudscraper')
+// const cloudscraper = require('cloudscraper')
 const crypto = require('crypto')
 const express = require('express')
 const LRU = require('lru-cache')
@@ -49,56 +49,89 @@ function isNull(param){
     return param == null || !param || param === 'null' || param === 'undefined'
 }
 
-function _doParse(body, regex){
-    const m = body.match(regex)
-    if(m == null || m.length < 2){
-        return 0
-    } else {
-        return Number.parseInt(m[1].replace(',', ''))
-    }
+// function _doParse(body, regex){
+//     const m = body.match(regex)
+//     if(m == null || m.length < 2){
+//         return 0
+//     } else {
+//         return Number.parseInt(m[1].replace(',', ''))
+//     }
+// }
+
+// function _webCrawlParse(base, id, regex, cloudflare = false){
+
+//     return new Promise((resolve, reject) => {
+//         if(isNull(id)){
+//             resolve(0)
+//         } else {
+//             const url = `${base}/${id}/`
+//             if(cloudflare){
+//                 try {
+//                     cloudscraper.get(url, (err, resp, body) => {
+//                         if(err){
+//                             //reject(err)
+//                             console.error(`Cloudflare Request error for ${url}. Not caching result..`, err)
+//                             // -1 indicates error (do not cache if cloudflare error)
+//                             // usually resolved by sending another request.
+//                             resolve(-1)
+//                         } else {
+//                             resolve(_doParse(body, regex))
+//                         }
+//                     })
+//                 } catch(error) {
+//                     resolve(0)
+//                 }
+//             } else {
+//                 request(url, (err, resp, body) => {
+//                     if(err){
+//                         //reject(err)
+//                         console.error(`Request error for ${url}`, err)
+//                         resolve(0)
+//                     } else {
+//                         resolve(_doParse(body, regex))
+//                     }
+//                 })
+//             }
+//         }
+//     })
+
+// }
+
+function parseBukkit(id){
+    return 0
+    // return _webCrawlParse('https://dev.bukkit.org/projects', id, /<div class="info-label">Total Downloads<\/div>\s*<div class="info-data">(.+)<\/div>/, true)
 }
 
-function _webCrawlParse(base, id, regex, cloudflare = false){
-
+function parseSpigot(id){
     return new Promise((resolve, reject) => {
         if(isNull(id)){
             resolve(0)
         } else {
-            const url = `${base}/${id}/`
-            if(cloudflare){
-                cloudscraper.get(url, (err, resp, body) => {
-                    if(err){
-                        //reject(err)
-                        console.error(`Cloudflare Request error for ${url}. Not caching result..`, err)
-                        // -1 indicates error (do not cache if cloudflare error)
-                        // usually resolved by sending another request.
-                        resolve(-1)
-                    } else {
-                        resolve(_doParse(body, regex))
-                    }
-                })
-            } else {
-                request(url, (err, resp, body) => {
-                    if(err){
-                        //reject(err)
-                        console.error(`Request error for ${url}`, err)
-                        resolve(0)
-                    } else {
-                        resolve(_doParse(body, regex))
-                    }
-                })
+
+            let longId
+            try {
+                longId = id.substring(id.lastIndexOf('.')+1)
+            } catch(error) {
+                resolve(0)
+                return
             }
+
+            const url = `https://api.spigotmc.org/simple/0.1/index.php?action=getResource&id=${longId}`
+            request(url, {
+                headers: {
+                    'User-Agent': 'PluginBadges'
+                }
+            }, (err, resp, body) => {
+                if(err){
+                    //reject(err)
+                    console.error(`Request error for ${url}`, err)
+                    resolve(0)
+                } else {
+                    resolve(JSON.parse(body).stats.downloads)
+                }
+            })
         }
     })
-
-}
-
-function parseBukkit(id){
-    return _webCrawlParse('https://dev.bukkit.org/projects', id, /<div class="info-label">Total Downloads<\/div>\s*<div class="info-data">(.+)<\/div>/, true)
-}
-
-function parseSpigot(id){
-    return _webCrawlParse('https://www.spigotmc.org/resources', id, /<dl class="downloadCount">[\s\S]*?<dd>(.+)<\/dd>[\s\S]*?<\/dl>/, true)
 }
 
 function parseOre(id){
